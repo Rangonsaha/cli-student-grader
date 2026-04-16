@@ -38,7 +38,7 @@ Choose an option:
         addStudent(students);
         break;
       case "2":
-        print("Record Score selected");
+        recordScore(students);
         break;
       case "3":
         print("Add Bonus selected");
@@ -65,7 +65,7 @@ Choose an option:
   } while (isRunning);
 }
 
-// Add Student Function
+// Add Student
 void addStudent(List<Map<String, dynamic>> students) {
   print("Enter student name:");
   var name = stdin.readLineSync();
@@ -79,6 +79,48 @@ void addStudent(List<Map<String, dynamic>> students) {
   };
 
   students.add(student);
-
   print("Student $name added successfully!");
+}
+
+// Record Score Function
+void recordScore(List<Map<String, dynamic>> students) {
+  if (students.isEmpty) {
+    print("No students available.");
+    return;
+  }
+
+  // Indexed for loop
+  for (int i = 0; i < students.length; i++) {
+    print("${i + 1}. ${students[i]["name"]}");
+  }
+
+  print("Choose student:");
+  var index = int.tryParse(stdin.readLineSync() ?? "") ?? -1;
+
+  if (index < 1 || index > students.length) {
+    print("Invalid selection.");
+    return;
+  }
+
+  var student = students[index - 1];
+
+  print("Subjects: ${availableSubjects.join(", ")}");
+
+  int score;
+
+  // while loop validation
+  while (true) {
+    print("Enter score (0-100):");
+    score = int.tryParse(stdin.readLineSync() ?? "") ?? -1;
+
+    if (score >= 0 && score <= 100) {
+      break;
+    } else {
+      print("Invalid score! Try again.");
+    }
+  }
+
+  student["scores"].add(score);
+
+  print("Score added successfully!");
 }
