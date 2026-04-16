@@ -12,9 +12,9 @@ final Set<String> availableSubjects = {
 };
 
 void main() {
+  var students = <Map<String, dynamic>>[];
   var isRunning = true;
 
-  // do-while loop
   do {
     print("""
 ===== $appTitle =====
@@ -33,10 +33,9 @@ Choose an option:
 
     var choice = stdin.readLineSync();
 
-    // switch routing
     switch (choice) {
       case "1":
-        print("Add Student selected");
+        addStudent(students);
         break;
       case "2":
         print("Record Score selected");
@@ -64,4 +63,22 @@ Choose an option:
         print("Invalid option!");
     }
   } while (isRunning);
+}
+
+// Add Student Function
+void addStudent(List<Map<String, dynamic>> students) {
+  print("Enter student name:");
+  var name = stdin.readLineSync();
+
+  var student = {
+    "name": name,
+    "scores": <int>[],
+    "subjects": {...availableSubjects},
+    "bonus": null,
+    "comment": null
+  };
+
+  students.add(student);
+
+  print("Student $name added successfully!");
 }
