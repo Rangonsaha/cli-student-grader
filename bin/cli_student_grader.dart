@@ -50,10 +50,10 @@ Choose an option:
         viewAllStudents(students);
         break;
       case "6":
-        print("View Report Card selected");
+        viewReportCard(students);
         break;
       case "7":
-        print("Class Summary selected");
+        classSummary(students);
         break;
       case "8":
         isRunning = false;
@@ -117,7 +117,7 @@ void recordScore(List<Map<String, dynamic>> students) {
   print("Score added successfully!");
 }
 
-// Add Bonus (??=)
+// Add Bonus
 void addBonus(List<Map<String, dynamic>> students) {
   if (students.isEmpty) {
     print("No students available.");
@@ -149,7 +149,7 @@ void addBonus(List<Map<String, dynamic>> students) {
   }
 }
 
-// Add Comment (?. ??)
+// Add Comment
 void addComment(List<Map<String, dynamic>> students) {
   if (students.isEmpty) {
     print("No students available.");
@@ -175,7 +175,7 @@ void addComment(List<Map<String, dynamic>> students) {
   print("Comment added!");
 }
 
-// View All Students (collection if + ??)
+// View All Students
 void viewAllStudents(List<Map<String, dynamic>> students) {
   if (students.isEmpty) {
     print("No students found.");
@@ -242,7 +242,6 @@ void viewReportCard(List<Map<String, dynamic>> students) {
 
   String grade;
 
-  // grade logic
   if (avg >= 90) {
     grade = "A";
   } else if (avg >= 80) {
@@ -272,7 +271,6 @@ void viewReportCard(List<Map<String, dynamic>> students) {
 ╚══════════════════════════════╝
 """);
 
-  // switch expression
   String feedback = switch (grade) {
     "A" => "Outstanding performance!",
     "B" => "Good work, keep it up!",
@@ -283,4 +281,62 @@ void viewReportCard(List<Map<String, dynamic>> students) {
   };
 
   print("Feedback: $feedback");
+}
+
+// Class Summary
+void classSummary(List<Map<String, dynamic>> students) {
+  if (students.isEmpty) {
+    print("No students available.");
+    return;
+  }
+
+  double total = 0;
+  double highest = 0;
+  double lowest = 100;
+  int count = 0;
+
+  Set<String> grades = {};
+
+  for (var s in students) {
+    var avg = calculateAverage(s);
+
+    // logical operator &&
+    if (s["scores"].isNotEmpty && avg >= 0) {
+      total += avg;
+      count++;
+
+      if (avg > highest) highest = avg;
+      if (avg < lowest) lowest = avg;
+
+      grades.add(getGrade(avg));
+    }
+  }
+
+  var classAvg = count == 0 ? 0 : total / count;
+
+  // collection for
+  var summaryLines = [
+    for (var s in students)
+      "${s["name"]}: ${calculateAverage(s).toStringAsFixed(2)}"
+  ];
+
+  print("""
+===== CLASS SUMMARY =====
+Total Students: ${students.length}
+Class Average: ${classAvg.toStringAsFixed(2)}
+Highest: ${highest.toStringAsFixed(2)}
+Lowest: ${lowest.toStringAsFixed(2)}
+Grades Present: $grades
+
+Student Averages:
+${summaryLines.join("\n")}
+""");
+}
+
+String getGrade(double avg) {
+  if (avg >= 90) return "A";
+  if (avg >= 80) return "B";
+  if (avg >= 70) return "C";
+  if (avg >= 60) return "D";
+  return "F";
 }
