@@ -259,16 +259,18 @@ void viewReportCard(List<Map<String, dynamic>> students) {
       student["comment"]?.toUpperCase() ?? "No comment provided";
 
   print("""
-╔══════════════════════════════╗
-║       REPORT CARD            ║
-╠══════════════════════════════╝
-║  Name:    ${student["name"]}
-║  Scores:  ${student["scores"]}
-║  Bonus:   +$bonus
-║  Average: ${avg.toStringAsFixed(2)}
-║  Grade:   $grade
-║  Comment: $comment
-╚══════════════════════════════╝
+┌────────────────────────────────────────┐
+│             REPORT CARD                │
+├────────────────────────────────────────┤
+│ Name    : ${student["name"]}           ┤
+│ Scores  : ${student["scores"]}         ┤
+│ Bonus   : +$bonus                      ┤
+├                                        ┤
+│ Average : ${avg.toStringAsFixed(2)}    ┤
+│ Grade   : $grade                       ┤
+├                                        ┤
+│ Comment : $comment                     ┤
+└────────────────────────────────────────┘
 """);
 
   String feedback = switch (grade) {
