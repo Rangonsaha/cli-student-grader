@@ -262,14 +262,14 @@ void viewReportCard(List<Map<String, dynamic>> students) {
 ┌────────────────────────────────────────┐
 │             REPORT CARD                │
 ├────────────────────────────────────────┤
-│ Name    : ${student["name"]}           ┤
-│ Scores  : ${student["scores"]}         ┤
-│ Bonus   : +$bonus                      ┤
-├                                        ┤
-│ Average : ${avg.toStringAsFixed(2)}    ┤
-│ Grade   : $grade                       ┤
-├                                        ┤
-│ Comment : $comment                     ┤
+│ Name    : ${student["name"]}
+│ Scores  : ${student["scores"]}
+│ Bonus   : +$bonus
+├────────────────────────────────────────┤
+│ Average : ${avg.toStringAsFixed(2)}
+│ Grade   : $grade
+├────────────────────────────────────────┤
+│ Comment : $comment
 └────────────────────────────────────────┘
 """);
 
